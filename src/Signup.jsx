@@ -24,7 +24,7 @@ function Signup() {
     e.preventDefault();
     try {
       console.log(formData);
-      const response = await fetch('https://blogbackend-d377.onrender.com/user/register', {
+      const response = await fetch('https://localhost:3004/user/register', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

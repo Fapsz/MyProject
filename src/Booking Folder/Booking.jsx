@@ -28,7 +28,7 @@ function Booking() {
     setMessage("");
 
     try {
-      const res = await axios.post("http://localhost:3004/users/bookings", formData);
+      const res = await post("http://localhost:3004/users/bookings", formData);
 
       // ✅ Success message
       setMessage("✅ Booking successful!");
