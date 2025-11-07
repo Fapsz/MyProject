@@ -22,9 +22,11 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       console.log(formData);
-      const response = await fetch('https://localhost:3004/user/register', {
+
+      const response = await fetch("https://localhost:3004/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -34,17 +36,15 @@ function Signup() {
       const data = await response.json();
       console.log("Signup successful:", data);
 
-      // ✅ Redirect based on role from backend
-      if (data.role === "Admin") {
-        navigate("/admin");
-      } else if (data.role === "User") {
-        navigate("/dashboard");
+      // ✅ Redirect to /rooms after signup
+      if (response.ok) {
+        navigate("/rooms");
       } else {
-        // fallback if no role is returned
-        navigate("/login");
+        alert(data.message || "Signup failed. Please try again.");
       }
     } catch (error) {
       console.error("Error during signup:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
