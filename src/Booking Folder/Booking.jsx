@@ -28,7 +28,7 @@ function Booking() {
     setMessage("");
 
     try {
-      const res = await post("http://localhost:3004/users/bookings", formData);
+      const res = await post("http://localhost:3004/users/booking", formData);
 
       // ✅ Success message
       setMessage("✅ Booking successful!");
