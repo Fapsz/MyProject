@@ -26,7 +26,7 @@ function Signup() {
     try {
       console.log(formData);
 
-      const response = await fetch("https://localhost:3004/user/register", {
+      const response = await fetch("https://localhost:3004/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
