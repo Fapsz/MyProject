@@ -213,7 +213,7 @@ function Room() {
             <img
               src={roomModal.img}
               alt={roomModal.title}
-              className="w-full h-56 object-cover rounded-xl mb-4"
+              className="w-full h-56 object-cover rounded-xl mb-4" style={{backgroundImage:'url(pexels-1.jpg)'}}
             />
             <h3 className="text-2xl font-bold text-sky-700 mb-2 text-center">
               {roomModal.title}
