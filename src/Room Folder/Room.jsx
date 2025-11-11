@@ -194,7 +194,7 @@ function Room() {
 
       {/* ✅ Room Details Modal */}
       {roomModal.open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" style={{backgroundImage:'url(pexels-1.jpg)'}}>
           <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-2xl font-bold"
@@ -213,7 +213,7 @@ function Room() {
             <img
               src={roomModal.img}
               alt={roomModal.title}
-              className="w-full h-56 object-cover rounded-xl mb-4" style={{backgroundImage:'url(pexels-1.jpg)'}}
+              className="w-full h-56 object-cover rounded-xl mb-4"
             />
             <h3 className="text-2xl font-bold text-sky-700 mb-2 text-center">
               {roomModal.title}
