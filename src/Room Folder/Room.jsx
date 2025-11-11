@@ -19,7 +19,7 @@ function Room() {
     presidential: 0,
     luxury: 0,
     penthouse: 0,
-    apartment: 0, // ✅ new room index
+    apartment: 0,
   });
 
   const navigate = useNavigate();
@@ -34,8 +34,6 @@ function Room() {
     presidential: ["/pexels-500.jpg", "/pexels-501.jpg", "/pexels-502.jpg"],
     luxury: ["/pexels-700.jpg", "/pexels-701.jpg", "/pexels-702.jpg"],
     penthouse: ["/pexels-800.jpg", "/pexels-801.jpg", "/pexels-802.jpg"],
-
-    // ✅ new room images
     apartment: ["/pexels-900.jpg", "/pexels-901.jpg", "/pexels-902.jpg"],
   };
 
@@ -80,7 +78,6 @@ function Room() {
       desc: "The ultimate dream stay with panoramic views and 5-star facilities.",
       price: "$150/perNight",
     },
-    // ✅ new room details
     apartment: {
       title: "Apartment Suite",
       desc: "An extraordinary blend of elegance and luxury fit for royalty.",
@@ -107,13 +104,15 @@ function Room() {
       key={key}
       className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl"
     >
-      {/* Image Slider */}
-      <div className="relative w-full h-56" style={{backgroundImage:'url(pexels-100.jpg)'}}>
-        <img
-          src={roomImageSets[key][roomSliderIndex[key]]}
-          alt={roomDetails[key].title}
-          className="w-full h-full object-cover"
-        />
+      {/* Background Image Section */}
+      <div
+        className="relative w-full h-56"
+        style={{
+          backgroundImage: `url(${roomImageSets[key][roomSliderIndex[key]]})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         {/* Arrows */}
         <button
           className="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 rounded-full p-2 shadow hover:bg-sky-200"
@@ -180,8 +179,16 @@ function Room() {
   );
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <section className="max-w-6xl mx-auto py-12 px-4 bg-gray-100 w-full">
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: "url('/pexels-100.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <section className="max-w-6xl mx-auto py-12 px-4 bg-white bg-opacity-90 rounded-xl shadow-md mt-10 w-full">
         <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
           Our Rooms
         </h2>
@@ -194,7 +201,14 @@ function Room() {
 
       {/* ✅ Room Details Modal */}
       {roomModal.open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" style={{backgroundImage:'url(pexels-1.jpg)'}}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60"
+          style={{
+            backgroundImage: "url('/pexels-1.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-2xl font-bold"
@@ -210,11 +224,14 @@ function Room() {
             >
               &times;
             </button>
-            <img
-              src={roomModal.img}
-              alt={roomModal.title}
-              className="w-full h-56 object-cover rounded-xl mb-4"
-            />
+            <div
+              className="w-full h-56 rounded-xl mb-4"
+              style={{
+                backgroundImage: `url(${roomModal.img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
             <h3 className="text-2xl font-bold text-sky-700 mb-2 text-center">
               {roomModal.title}
             </h3>
