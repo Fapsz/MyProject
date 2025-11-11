@@ -108,7 +108,7 @@ function Room() {
       className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-2xl"
     >
       {/* Image Slider */}
-      <div className="relative w-full h-56" style={{backgroundImage:'url(pexels-1.jpg)'}}>
+      <div className="relative w-full h-56" style={{backgroundImage:'url(pexels-100.jpg)'}}>
         <img
           src={roomImageSets[key][roomSliderIndex[key]]}
           alt={roomDetails[key].title}
