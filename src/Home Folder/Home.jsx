@@ -79,7 +79,7 @@ function Home() {
     >
       <div className="">
         <div className="relative w-full h-[100vh] flex items-center justify-center">
-          <div className="cc"></div>
+          <div className="cc" style={{backgroundImage:'url(pexels-1.jpg)'}}></div>
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
             <h2 className="text-4xl text-white font-bold text-center drop-shadow-lg">
               {typedText}
