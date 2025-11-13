@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Booking() {
@@ -22,26 +21,36 @@ function Booking() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const API_URL = "https://dreambackend-fnr6.onrender.com";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
 
     try {
-      // ✅ use axios.post instead of post()
-      const res = await axios.post(
-        "https://dreambackend-fnr6.onrender.com/user/booking",
-        formData
-      );
+      const response = await fetch(`${API_URL}/user/booking`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
       setMessage("✅ Booking successful!");
 
       // Show success message for 1.5s then navigate
       setTimeout(() => {
-        navigate("/thank-you", { state: { booking: res.data } });
+        navigate("/thank-you", { state: { booking: data } });
       }, 1500);
     } catch (err) {
-      console.error(err);
+      console.error("Booking error:", err);
       setMessage(
         formData.roomType === ""
           ? "❌ Please select a room before booking."
