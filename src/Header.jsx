@@ -15,6 +15,21 @@ function Header() {
       setIsLoggedIn(true);
       setUserName(user.fullname || "Guest");
     }
+
+    // ✅ Listen for storage changes (from other tabs/windows)
+    const handleStorageChange = () => {
+      const updatedUser = JSON.parse(localStorage.getItem("user"));
+      if (updatedUser) {
+        setIsLoggedIn(true);
+        setUserName(updatedUser.fullname || "Guest");
+      } else {
+        setIsLoggedIn(false);
+        setUserName("");
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   // ✅ Logout handler
@@ -27,7 +42,10 @@ function Header() {
   return (
     <header className="fixed top-0 w-full h-[70px] bg-gray-800 shadow-lg flex items-center justify-between px-6 z-50">
       {/* ✅ Logo */}
-      <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
+      <div
+        className="flex items-center gap-3 cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         <img
           src="/pexels-080.jpg"
           alt="Dream Hotel Logo"
@@ -42,8 +60,12 @@ function Header() {
 
       {/* ✅ Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-8 text-white font-semibold">
-        <a href="/" className="hover:text-sky-300 text-sky-400">Home</a>
-        <a href="/about" className="hover:text-sky-300">About</a>
+        <a href="/" className="hover:text-sky-300 text-sky-400">
+          Home
+        </a>
+        <a href="/about" className="hover:text-sky-300">
+          About
+        </a>
 
         {/* Rooms Dropdown */}
         <div className="relative">
@@ -61,26 +83,78 @@ function Header() {
               strokeWidth="2"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
           {showRoomsDropdown && (
             <div className="absolute left-0 top-full mt-2 w-44 bg-white rounded-xl shadow-lg z-50">
               <ul className="text-left py-2 text-sky-700">
-                <li><a href="/room?type=standard" className="block px-4 py-2 hover:bg-sky-100">Standard Room</a></li>
-                <li><a href="/room?type=deluxe" className="block px-4 py-2 hover:bg-sky-100">Deluxe Room</a></li>
-                <li><a href="/room?type=suite" className="block px-4 py-2 hover:bg-sky-100">Suite</a></li>
-                <li><a href="/room?type=family" className="block px-4 py-2 hover:bg-sky-100">Family Room</a></li>
-                <li><a href="/room?type=executive" className="block px-4 py-2 hover:bg-sky-100">Executive Room</a></li>
-                <li><a href="/room?type=presidential" className="block px-4 py-2 hover:bg-sky-100">Presidential Suite</a></li>
+                <li>
+                  <a
+                    href="/room?type=standard"
+                    className="block px-4 py-2 hover:bg-sky-100"
+                  >
+                    Standard Room
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/room?type=deluxe"
+                    className="block px-4 py-2 hover:bg-sky-100"
+                  >
+                    Deluxe Room
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/room?type=suite"
+                    className="block px-4 py-2 hover:bg-sky-100"
+                  >
+                    Suite
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/room?type=family"
+                    className="block px-4 py-2 hover:bg-sky-100"
+                  >
+                    Family Room
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/room?type=executive"
+                    className="block px-4 py-2 hover:bg-sky-100"
+                  >
+                    Executive Room
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/room?type=presidential"
+                    className="block px-4 py-2 hover:bg-sky-100"
+                  >
+                    Presidential Suite
+                  </a>
+                </li>
               </ul>
             </div>
           )}
         </div>
 
-        <a href="/guest" className="hover:text-sky-300">Guest</a>
-        <a href="/booking" className="hover:text-sky-300">Booking</a>
-        <a href="/contact" className="hover:text-sky-300">Contact</a>
+        <a href="/guest" className="hover:text-sky-300">
+          Guest
+        </a>
+        <a href="/booking" className="hover:text-sky-300">
+          Booking
+        </a>
+        <a href="/contact" className="hover:text-sky-300">
+          Contact
+        </a>
       </nav>
 
       {/* ✅ Right side buttons */}
@@ -139,12 +213,32 @@ function Header() {
         onClick={() => setIsMobileMenuOpen((prev) => !prev)}
       >
         {isMobileMenuOpen ? (
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         ) : (
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         )}
       </button>
@@ -152,12 +246,24 @@ function Header() {
       {/* ✅ Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-[70px] left-0 w-full bg-gray-900 flex flex-col items-center py-6 gap-6 text-white font-semibold md:hidden">
-          <a href="/" className="hover:text-sky-300">Home</a>
-          <a href="/about" className="hover:text-sky-300">About</a>
-          <a href="/room" className="hover:text-sky-300">Rooms</a>
-          <a href="/guest" className="hover:text-sky-300">Guest</a>
-          <a href="/booking" className="hover:text-sky-300">Booking</a>
-          <a href="/contact" className="hover:text-sky-300">Contact</a>
+          <a href="/" className="hover:text-sky-300">
+            Home
+          </a>
+          <a href="/about" className="hover:text-sky-300">
+            About
+          </a>
+          <a href="/room" className="hover:text-sky-300">
+            Rooms
+          </a>
+          <a href="/guest" className="hover:text-sky-300">
+            Guest
+          </a>
+          <a href="/booking" className="hover:text-sky-300">
+            Booking
+          </a>
+          <a href="/contact" className="hover:text-sky-300">
+            Contact
+          </a>
 
           {!isLoggedIn ? (
             <div className="flex gap-3 mt-4">

@@ -25,7 +25,7 @@ function Login() {
     e.preventDefault();
     try {
       console.log(formData);
-      const response = await fetch(`${API_URL}/user/login`, {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -39,11 +39,23 @@ function Login() {
       } else {
         console.log("Login successful:", data);
 
+        // ✅ Save user to localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: data.user?.id,
+            fullname: data.user?.fullname,
+            email: data.user?.email,
+            role: data.user?.role,
+            token: data.token,
+          })
+        );
+
         // ✅ Check user role
         if (data.user && data.user.role === "Admin") {
-          navigate("/admin/dashboard");
+          navigate("/admins/dashboard");
         } else {
-          navigate("/room"); // normal user
+          navigate("/"); // normal user
         }
       }
     } catch (error) {
@@ -53,8 +65,7 @@ function Login() {
 
   // 👉 Redirect to Gmail login page
   const handleGoogleLogin = () => {
-    window.location.href =
-      "https://accounts.google.com/signin/v2/identifier";
+    window.location.href = "https://accounts.google.com/signin/v2/identifier";
   };
 
   return (

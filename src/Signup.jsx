@@ -28,7 +28,7 @@ function Signup() {
     try {
       console.log(formData);
 
-      const response = await fetch(`${API_URL}/user/register`, {
+      const response = await fetch(`${API_URL}/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -39,6 +39,17 @@ function Signup() {
       console.log("Signup successful:", data);
 
       if (response.ok) {
+        // ✅ Save user to localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: data.id || data.user?.id,
+            fullname: formData.fullname,
+            email: formData.email,
+            token: data.token,
+          })
+        );
+
         navigate("/");
       } else {
         alert(data.message || "Signup failed. Please try again.");
