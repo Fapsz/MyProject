@@ -24,8 +24,8 @@ function Header() {
       {/* ✅ Logo */}
       <div className="flex items-center gap-3">
         <img
-          src="/pexels-080.jpg"
-          alt="Dream Hotel Logo"
+          src="/admin-1.jpg"
+          alt="admin-1.jpg"
           className="w-10 h-10 md:w-12 md:h-12 object-cover rounded-full shadow-md"
         />
         <h1 className="text-2xl md:text-3xl font-extrabold tracking-wide">
