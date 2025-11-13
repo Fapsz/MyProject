@@ -38,6 +38,8 @@ function Login() {
         return alert(data.message || "Login failed");
       } else {
         console.log("Login successful:", data);
+        localStorage.setItem("user", JSON.stringify(data.user)); // save user info
+        navigate("/rooms");
 
         // ✅ Save user to localStorage
         localStorage.setItem(
@@ -55,7 +57,7 @@ function Login() {
         if (data.user && data.user.role === "Admin") {
           navigate("/admins/dashboard");
         } else {
-          navigate("/"); // normal user
+          navigate("/rooms"); // normal user
         }
       }
     } catch (error) {
