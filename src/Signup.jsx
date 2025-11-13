@@ -13,6 +13,8 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  const API_URL = "https://dreambackend-fnr6.onrender.com";
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -26,7 +28,7 @@ function Signup() {
     try {
       console.log(formData);
 
-      const response = await fetch("https://localhost:3004/users/register", {
+      const response = await fetch(`${API_URL}/user/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

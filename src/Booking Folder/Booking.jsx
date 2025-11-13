@@ -28,39 +28,41 @@ function Booking() {
     setMessage("");
 
     try {
-      const res = await post("http://localhost:3004/users/booking", formData);
+      // ✅ use axios.post instead of post()
+      const res = await axios.post(
+        "https://dreambackend-fnr6.onrender.com/user/booking",
+        formData
+      );
 
-      // ✅ Success message
       setMessage("✅ Booking successful!");
-      
-      // Redirect after short delay (so user sees the message first)
+
+      // Show success message for 1.5s then navigate
       setTimeout(() => {
         navigate("/thank-you", { state: { booking: res.data } });
       }, 1500);
-
     } catch (err) {
       console.error(err);
-
-      // Show clear error message
-      if (formData.roomType === "") {
-        setMessage("❌ Please select a room before booking.");
-      } else {
-        setMessage("❌ Error submitting booking. Please try again.");
-      }
+      setMessage(
+        formData.roomType === ""
+          ? "❌ Please select a room before booking."
+          : "❌ Error submitting booking. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[300px] flex items-center justify-center bg-gradient-to-r from-gray-900 to-sky-600">
-        <h1 className="text-white text-4xl font-bold">Book Your Stay</h1>
+      <section className="relative h-[250px] sm:h-[300px] flex items-center justify-center bg-gradient-to-r from-gray-900 to-sky-600 text-center px-4">
+        <h1 className="text-white text-3xl sm:text-4xl font-bold tracking-wide">
+          Book Your Stay
+        </h1>
       </section>
 
       {/* Booking Form */}
-      <section className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8 -mt-16 mb-12 relative z-10">
+      <section className="max-w-4xl w-full mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-8 -mt-12 sm:-mt-16 mb-12 relative z-10">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
           Reservation Form
         </h2>
@@ -78,59 +80,59 @@ function Booking() {
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
         >
           {/* Full Name */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Full Name</label>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-medium mb-2">Full Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
               placeholder="John Doe"
             />
           </div>
 
           {/* Email */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Email</label>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-medium mb-2">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
               placeholder="john@example.com"
             />
           </div>
 
           {/* Phone */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Phone</label>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-medium mb-2">Phone</label>
             <input
               type="text"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
               placeholder="+234 800 000 0000"
             />
           </div>
 
           {/* Room Type */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Room Type</label>
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-medium mb-2">Room Type</label>
             <select
               name="roomType"
               value={formData.roomType}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
             >
               <option value="">Select Room</option>
               <option value="single">Single Room</option>
@@ -139,35 +141,35 @@ function Booking() {
             </select>
           </div>
 
-          {/* Check-in */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Check-In</label>
+          {/* Check-In */}
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-medium mb-2">Check-In</label>
             <input
               type="date"
               name="checkIn"
               value={formData.checkIn}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
             />
           </div>
 
-          {/* Check-out */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Check-Out</label>
+          {/* Check-Out */}
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-medium mb-2">Check-Out</label>
             <input
               type="date"
               name="checkOut"
               value={formData.checkOut}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
             />
           </div>
 
           {/* Guests */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">Guests</label>
+          <div className="flex flex-col sm:col-span-2">
+            <label className="text-gray-700 font-medium mb-2">Guests</label>
             <input
               type="number"
               name="guests"
@@ -175,16 +177,16 @@ function Booking() {
               value={formData.guests}
               onChange={handleChange}
               required
-              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-sky-500"
+              className="border rounded-lg p-3 focus:ring-2 focus:ring-sky-500 outline-none"
             />
           </div>
 
           {/* Submit */}
-          <div className="col-span-2 mt-6 text-center">
+          <div className="col-span-1 sm:col-span-2 mt-6 flex justify-center">
             <button
               type="submit"
               disabled={loading}
-              className="bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-3 rounded-lg disabled:bg-gray-400"
+              className="bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-3 rounded-lg transition duration-200 disabled:bg-gray-400"
             >
               {loading ? "Submitting..." : "Confirm Booking"}
             </button>
