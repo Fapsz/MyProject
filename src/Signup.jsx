@@ -38,7 +38,6 @@ function Signup() {
       const data = await response.json();
       console.log("Signup successful:", data);
 
-      // ✅ Redirect to /rooms after signup
       if (response.ok) {
         navigate("/");
       } else {
