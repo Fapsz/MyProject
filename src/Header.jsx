@@ -16,7 +16,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/"; // reload or redirect
+    window.location.href = "/"; // redirect
   };
 
   return (
@@ -47,7 +47,9 @@ function Header() {
           >
             Rooms
             <svg
-              className={`w-4 h-4 text-sky-400 transition-transform ${showRoomsDropdown ? "rotate-90" : ""}`}
+              className={`w-4 h-4 text-sky-400 transition-transform ${
+                showRoomsDropdown ? "rotate-90" : ""
+              }`}
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -56,6 +58,7 @@ function Header() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
+
           {showRoomsDropdown && (
             <div className="absolute left-0 top-full mt-2 w-44 bg-white rounded-xl shadow-lg z-50">
               <ul className="text-left py-2 text-sky-700">
@@ -72,11 +75,10 @@ function Header() {
         <a href="/contact" className="hover:text-sky-300">Contact</a>
       </nav>
 
-      {/* ✅ Profile / Signup / Login */}
+      {/* ✅ Desktop Profile / Login */}
       <div className="hidden md:flex items-center gap-3">
         {user ? (
-          // ✅ If logged in, show profile
-          <div className="flex items-center gap-3">
+          <>
             <div className="flex items-center gap-2 bg-sky-700 px-4 py-2 rounded-full cursor-pointer">
               <img
                 src={user.profileImage || "/default-avatar.png"}
@@ -91,9 +93,8 @@ function Header() {
             >
               Logout
             </button>
-          </div>
+          </>
         ) : (
-          // ✅ If not logged in, show signup/login
           <>
             <a href="/signup">
               <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
@@ -108,6 +109,68 @@ function Header() {
           </>
         )}
       </div>
+
+      {/* ✅ Mobile Hamburger Menu Button */}
+      <button
+        className="md:hidden text-white focus:outline-none"
+        onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+      >
+        {isMobileMenuOpen ? (
+          // Close icon
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          // Menu icon
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        )}
+      </button>
+
+      {/* ✅ Mobile Menu Content */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-[70px] left-0 w-full bg-gray-900 flex flex-col items-center py-6 gap-6 text-white font-semibold md:hidden">
+          <a href="/" className="hover:text-sky-300">Home</a>
+          <a href="/about" className="hover:text-sky-300">About</a>
+          <a href="/room" className="hover:text-sky-300">Rooms</a>
+          <a href="/guest" className="hover:text-sky-300">Guest</a>
+          <a href="/booking" className="hover:text-sky-300">Booking</a>
+          <a href="/contact" className="hover:text-sky-300">Contact</a>
+
+          {user ? (
+            <div className="flex flex-col items-center gap-4 mt-4">
+              <div className="flex items-center gap-2 bg-sky-700 px-4 py-2 rounded-full">
+                <img
+                  src={user.profileImage || "/default-avatar.jpg"}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full"
+                />
+                <span>{user.fullname || "Profile"}</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3 mt-4">
+              <a href="/signup">
+                <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full">
+                  Signup
+                </button>
+              </a>
+              <a href="/login">
+                <button className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-6 rounded-full">
+                  Login
+                </button>
+              </a>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 }
