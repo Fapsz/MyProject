@@ -61,7 +61,10 @@ function Signup() {
         <span className="text-gray-200">Up</span>
       </h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mt-8 w-80">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-4 mt-8 w-80"
+      >
         <label className="flex flex-col">
           Full Name:
           <input
@@ -103,7 +106,10 @@ function Signup() {
           </button>
         </div>
 
-        <button type="submit" className="mt-4 p-2 bg-blue-600 rounded hover:bg-blue-700">
+        <button
+          type="submit"
+          className="mt-4 p-2 bg-blue-600 rounded hover:bg-blue-700"
+        >
           Signup
         </button>
 
