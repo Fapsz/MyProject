@@ -40,7 +40,7 @@ function Signup() {
 
       // ✅ Redirect to /rooms after signup
       if (response.ok) {
-        navigate("/rooms");
+        navigate("/");
       } else {
         alert(data.message || "Signup failed. Please try again.");
       }
