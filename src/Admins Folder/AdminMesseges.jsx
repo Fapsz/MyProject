@@ -9,9 +9,13 @@ function AdminMessages() {
     fetchMessages();
   }, []);
 
+  const API_URL = "https://dreambackend-fnr6.onrender.com";
+
   const fetchMessages = async () => {
     try {
-      const res = await fetch("http://localhost:3004/users/messages");
+      const res = await fetch(`${API_URL}/users/messages`, {
+        method: "GET",
+      }); 
       const data = await res.json();
       setMessages(data);
     } catch (err) {

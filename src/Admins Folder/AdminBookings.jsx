@@ -9,9 +9,11 @@ function AdminBookings() {
     fetchBookings();
   }, []);
 
+  const API_URL = "https://dreambackend-fnr6.onrender.com";
+
   const fetchBookings = async () => {
     try {
-      const res = await fetch("http://localhost:3004/users/bookings");
+      const res = await fetch(`${API_URL}/user/bookings`);
       const data = await res.json();
       setBookings(data);
     } catch (err) {
@@ -22,7 +24,7 @@ function AdminBookings() {
   // Approve booking
   const handleApprove = async (id) => {
     try {
-      await fetch(`http://localhost:3004/users/bookings/${id}/approve`, {
+      await fetch(`/users/bookings/${id}/approve`, {
         method: "PUT",
       });
       fetchBookings(); // refresh data
@@ -35,7 +37,7 @@ function AdminBookings() {
   const handleCancel = async (id) => {
     if (!window.confirm("Are you sure you want to cancel this booking?")) return;
     try {
-      await fetch(`http://localhost:3004/users/bookings/${id}/cancel`, {
+      await fetch(`https://dreambackend-fnr6.onrender.com/user/bookings/${id}/cancel`, {
         method: "PUT",
       });
       fetchBookings();

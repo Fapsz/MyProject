@@ -14,7 +14,7 @@ function AdminReports() {
   const fetchReports = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3004/users/reports");
+      const res = await fetch("https://dreambackend-fnr6.onrender.com/user/reports");
       const data = await res.json();
       setReports(data);
     } catch (err) {
@@ -32,7 +32,7 @@ function AdminReports() {
     e.preventDefault();
     try {
       if (editReport) {
-        await fetch(`http://localhost:3004/users/reports/${editReport._id}`, {
+        await fetch(`https://dreambackend-fnr6.onrender.com/user/reports/${editReport._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -56,7 +56,7 @@ function AdminReports() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this report?")) return;
     try {
-      await fetch(`http://localhost:3004/users/reports/${id}`, {
+      await fetch(`https://dreambackend-fnr6.onrender.com/users/reports/${id}`, {
         method: "DELETE",
       });
       fetchReports();

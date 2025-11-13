@@ -7,7 +7,7 @@ function AdminGuests() {
   useEffect(() => {
     const fetchGuests = async () => {
       try {
-        const response = await fetch("http://localhost:3004/guests", {
+        const response = await fetch("https://dreambackend-fnr6.onrender.com/guests", {
           method: "GET",
           credentials: "include", // keep cookies/session
         });

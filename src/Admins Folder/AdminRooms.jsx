@@ -18,7 +18,9 @@ function AdminRooms() {
   const fetchRooms = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:3004/users/rooms");
+    const res = await fetch(`${API_url}/users/rooms`, {
+        method: "GET",
+      });
       const data = await res.json();
       setRooms(data);
     } catch (error) {
@@ -38,14 +40,14 @@ function AdminRooms() {
     try {
       if (editRoom) {
         // Update
-        await fetch(`http://localhost:3004/users/rooms/${editRoom._id}`, {
+        await fetch(`https://dreambackend-fnr6.onrender.com/users/rooms/${editRoom._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       } else {
         // Create
-        await fetch("http://localhost:3004/user/rooms", {
+        await fetch("4/user/rooms", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -77,7 +79,7 @@ function AdminRooms() {
     if (!window.confirm("Are you sure you want to delete this room?")) return;
 
     try {
-      await fetch(`http://localhost:3004/users/rooms/${id}`, {
+      await fetch(`https://dreambackend-fnr6.onrender.com/users/rooms/${id}`, {
         method: "DELETE",
       });
       fetchRooms(); // refresh

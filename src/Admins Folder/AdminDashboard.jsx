@@ -20,7 +20,7 @@ function AdminDashboard() {
   const handleLogout = async () => {
     try {
       // If you have a backend logout API, call it here:
-      await fetch("http://localhost:3004/users/logout", {
+      await fetch("https://dreambackend-fnr6.onrender.com/user/logout", {
         method: "POST",
         credentials: "include", // ensures cookies are cleared if using sessions
       });

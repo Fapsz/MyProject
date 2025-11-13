@@ -9,7 +9,7 @@ function Users() {
            const fetchUsers = async () => {
              setLoading(true);
              try {
-               const response = await fetch('http://localhost:3004/user');
+               const response = await fetch('https://dreambackend-fnr6.onrender.com3004/user');
                const data = await response.json();
                setHoldUsers(data);
              } catch (error) {
@@ -25,7 +25,7 @@ function Users() {
 
             const handleDelete = async (userId) => {
                 try {
-                    const response = await fetch(`http://localhost:3004/user/${userId}`, {
+                    const response = await fetch(`https://dreambackend-fnr6.onrender.com/user/${userId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
