@@ -1,17 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const [showRoomsDropdown, setShowRoomsDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅ Track login
+  const [userName, setUserName] = useState(""); // optional display name
+  const navigate = useNavigate();
+
+  // ✅ Check login on mount
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setIsLoggedIn(true);
+      setUserName(user.fullname || "Guest");
+    }
+  }, []);
+
+  // ✅ Logout handler
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
 
   return (
     <header className="fixed top-0 w-full h-[70px] bg-gray-800 shadow-lg flex items-center justify-between px-6 z-50">
       {/* ✅ Logo */}
-      <div className="flex items-center gap-3 aa">
+      <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
         <img
-          src="/pexels-080.jpg" // 👉 place your hotel logo image in /public
+          src="/pexels-080.jpg"
           alt="Dream Hotel Logo"
-          className="w-10 h-10 md:w-12 md:h-12 object-cover rounded-full shadow-md aa"
+          className="w-10 h-10 md:w-12 md:h-12 object-cover rounded-full shadow-md"
         />
         <h1 className="text-2xl md:text-3xl font-extrabold tracking-wide">
           <span className="text-white">Dream</span>
@@ -53,7 +73,6 @@ function Header() {
                 <li><a href="/room?type=family" className="block px-4 py-2 hover:bg-sky-100">Family Room</a></li>
                 <li><a href="/room?type=executive" className="block px-4 py-2 hover:bg-sky-100">Executive Room</a></li>
                 <li><a href="/room?type=presidential" className="block px-4 py-2 hover:bg-sky-100">Presidential Suite</a></li>
-                <li><a href="/room?type=luxury" className="block px-4 py-2 hover:bg-sky-100"></a></li>
               </ul>
             </div>
           )}
@@ -64,18 +83,54 @@ function Header() {
         <a href="/contact" className="hover:text-sky-300">Contact</a>
       </nav>
 
-      {/* ✅ Signup / Login always at far right */}
+      {/* ✅ Right side buttons */}
       <div className="hidden md:flex items-center gap-3">
-        <a href="/signup">
-          <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-            Signup
-          </button>
-        </a>
-        <a href="/login">
-          <button className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full">
-            Login
-          </button>
-        </a>
+        {!isLoggedIn ? (
+          <>
+            <a href="/signup">
+              <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                Signup
+              </button>
+            </a>
+            <a href="/login">
+              <button className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full">
+                Login
+              </button>
+            </a>
+          </>
+        ) : (
+          // ✅ Profile Menu
+          <div className="relative group">
+            <button className="flex items-center gap-2 bg-sky-600 hover:bg-sky-700 py-2 px-4 rounded-full text-white font-semibold">
+              <img
+                src="/default-avatar.png"
+                alt="User Avatar"
+                className="w-6 h-6 rounded-full"
+              />
+              {userName.split(" ")[0]}
+            </button>
+            <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg text-gray-800 hidden group-hover:block">
+              <ul className="py-2 text-sm">
+                <li>
+                  <button
+                    onClick={() => navigate("/profile")}
+                    className="block w-full text-left px-4 py-2 hover:bg-sky-100"
+                  >
+                    Profile
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 hover:bg-red-100 text-red-500"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ✅ Mobile Hamburger */}
@@ -103,19 +158,36 @@ function Header() {
           <a href="/guest" className="hover:text-sky-300">Guest</a>
           <a href="/booking" className="hover:text-sky-300">Booking</a>
           <a href="/contact" className="hover:text-sky-300">Contact</a>
-          {/* Signup/Login in mobile too */}
-          <div className="flex gap-3 mt-4">
-            <a href="/signup">
-              <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                Signup
+
+          {!isLoggedIn ? (
+            <div className="flex gap-3 mt-4">
+              <a href="/signup">
+                <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                  Signup
+                </button>
+              </a>
+              <a href="/login">
+                <button className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full">
+                  Login
+                </button>
+              </a>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-2 mt-4">
+              <button
+                onClick={() => navigate("/profile")}
+                className="bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 px-6 rounded-full"
+              >
+                Profile
               </button>
-            </a>
-            <a href="/login">
-              <button className="bg-sky-600 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full">
-                Login
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full"
+              >
+                Logout
               </button>
-            </a>
-          </div>
+            </div>
+          )}
         </div>
       )}
     </header>
