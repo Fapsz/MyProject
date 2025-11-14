@@ -15,10 +15,12 @@ function AdminRooms() {
     fetchRooms();
   }, []);
 
+  const API_URL = "https://dreambackend-fnr6.onrender.com";
+
   const fetchRooms = async () => {
     setLoading(true);
     try {
-    const res = await fetch(`${API_url}/users/rooms`, {
+      const res = await fetch(`${API_URL}/users/rooms`, {
         method: "GET",
       });
       const data = await res.json();
@@ -40,11 +42,14 @@ function AdminRooms() {
     try {
       if (editRoom) {
         // Update
-        await fetch(`https://dreambackend-fnr6.onrender.com/users/rooms/${editRoom._id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
+        await fetch(
+          `https://dreambackend-fnr6.onrender.com/users/rooms/${editRoom._id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          }
+        );
       } else {
         // Create
         await fetch("4/user/rooms", {
