@@ -6,7 +6,6 @@ function Header() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // ✅ Check if user is logged in
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -16,12 +15,12 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/"; // redirect
+    window.location.href = "/";
   };
 
   return (
     <header className="fixed top-0 w-full h-[70px] bg-gray-800 shadow-lg flex items-center justify-between px-6 z-50">
-      {/* ✅ Logo */}
+      {/* Logo */}
       <div className="flex items-center gap-3">
         <img
           src="/pexels-080.jpg"
@@ -34,7 +33,7 @@ function Header() {
         </h1>
       </div>
 
-      {/* ✅ Desktop Navigation */}
+      {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-8 text-white font-semibold">
         <a href="/" className="hover:text-sky-300 text-sky-400">Home</a>
         <a href="/about" className="hover:text-sky-300">About</a>
@@ -60,11 +59,14 @@ function Header() {
           </button>
 
           {showRoomsDropdown && (
-            <div className="absolute left-0 top-full mt-2 w-44 bg-white rounded-xl shadow-lg z-50">
+            <div className="absolute left-0 top-full mt-2 w-52 bg-white rounded-xl shadow-lg z-50">
               <ul className="text-left py-2 text-sky-700">
                 <li><a href="/room?type=standard" className="block px-4 py-2 hover:bg-sky-100">Standard Room</a></li>
                 <li><a href="/room?type=deluxe" className="block px-4 py-2 hover:bg-sky-100">Deluxe Room</a></li>
-                <li><a href="/room?type=suite" className="block px-4 py-2 hover:bg-sky-100">Suite</a></li>
+                <li><a href="/room?type=suite" className="block px-4 py-2 hover:bg-sky-100">Luxury Suite</a></li>
+                <li><a href="/room?type=executive" className="block px-4 py-2 hover:bg-sky-100">Executive Room</a></li>
+                <li><a href="/room?type=family" className="block px-4 py-2 hover:bg-sky-100">Family Room</a></li>
+                <li><a href="/room?type=presidential" className="block px-4 py-2 hover:bg-sky-100">Presidential Suite</a></li>
               </ul>
             </div>
           )}
@@ -75,7 +77,7 @@ function Header() {
         <a href="/contact" className="hover:text-sky-300">Contact</a>
       </nav>
 
-      {/* ✅ Desktop Profile / Login */}
+      {/* Desktop Profile / Login */}
       <div className="hidden md:flex items-center gap-3">
         {user ? (
           <>
@@ -110,30 +112,39 @@ function Header() {
         )}
       </div>
 
-      {/* ✅ Mobile Hamburger Menu Button */}
+      {/* Mobile Menu Button */}
       <button
         className="md:hidden text-white focus:outline-none"
         onClick={() => setIsMobileMenuOpen((prev) => !prev)}
       >
         {isMobileMenuOpen ? (
-          // Close icon
           <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          // Menu icon
           <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         )}
       </button>
 
-      {/* ✅ Mobile Menu Content */}
+      {/* Mobile Menu Content */}
       {isMobileMenuOpen && (
         <div className="absolute top-[70px] left-0 w-full bg-gray-900 flex flex-col items-center py-6 gap-6 text-white font-semibold md:hidden">
           <a href="/" className="hover:text-sky-300">Home</a>
           <a href="/about" className="hover:text-sky-300">About</a>
-          <a href="/room" className="hover:text-sky-300">Rooms</a>
+
+          {/* Mobile Rooms List */}
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-sky-400 font-bold">Rooms</span>
+            <a href="/room?type=standard" className="hover:text-sky-300">Standard Room</a>
+            <a href="/room?type=deluxe" className="hover:text-sky-300">Deluxe Room</a>
+            <a href="/room?type=suite" className="hover:text-sky-300">Luxury Suite</a>
+            <a href="/room?type=executive" className="hover:text-sky-300">Executive Room</a>
+            <a href="/room?type=family" className="hover:text-sky-300">Family Room</a>
+            <a href="/room?type=presidential" className="hover:text-sky-300">Presidential Suite</a>
+          </div>
+
           <a href="/guest" className="hover:text-sky-300">Guest</a>
           <a href="/booking" className="hover:text-sky-300">Booking</a>
           <a href="/contact" className="hover:text-sky-300">Contact</a>
