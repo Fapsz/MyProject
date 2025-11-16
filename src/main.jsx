@@ -22,6 +22,7 @@ import AdminMessages from "./Admins Folder/AdminMesseges.jsx";
 import AdminRooms from "./Admins Folder/AdminRooms.jsx";
 import AdminDashboard from "./Admins Folder/AdminDashboard.jsx";
 import AdminUsers from "./Admins Folder/AdminUsers.jsx";
+import ThankYou from "./Booking Folder/ThankYou.jsx";
 
 function AppWrapper() {
   const location = useLocation();
@@ -51,6 +52,7 @@ function AppWrapper() {
         <Route path="/admins/guests" element={<AdminGuests />} />
         <Route path="/admins/reports" element={<AdminReports />} />
         <Route path="/admins/bookings" element={<AdminBookings />} />
+        <Route path="/thankyou/booking" element={<ThankYou />} />
       </Routes>
       {!hideLayout && <Footer />}
     </>
