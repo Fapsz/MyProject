@@ -20,7 +20,8 @@ function Header() {
 
   return (
     <header className="fixed top-0 w-full h-[70px] bg-gray-800 shadow-lg flex items-center justify-between px-6 z-50">
-      {/* Logo */}
+
+      {/* LOGO */}
       <div className="flex items-center gap-3">
         <img
           src="/pexels-080.jpg"
@@ -33,20 +34,20 @@ function Header() {
         </h1>
       </div>
 
-      {/* Desktop Navigation */}
+      {/* DESKTOP NAV */}
       <nav className="hidden md:flex items-center gap-8 text-white font-semibold">
         <a href="/" className="hover:text-sky-300 text-sky-400">Home</a>
         <a href="/about" className="hover:text-sky-300">About</a>
 
-        {/* Rooms Dropdown */}
+        {/* ROOMS DROPDOWN */}
         <div className="relative">
           <button
             className="flex items-center gap-1 hover:text-sky-300"
-            onClick={() => setShowRoomsDropdown((prev) => !prev)}
+            onClick={() => setShowRoomsDropdown(!showRoomsDropdown)}
           >
             Rooms
             <svg
-              className={`w-4 h-4 text-sky-400 transition-transform ${
+              className={`w-4 h-4 transition-transform ${
                 showRoomsDropdown ? "rotate-90" : ""
               }`}
               fill="none"
@@ -59,14 +60,15 @@ function Header() {
           </button>
 
           {showRoomsDropdown && (
-            <div className="absolute left-0 top-full mt-2 w-52 bg-white rounded-xl shadow-lg z-50">
-              <ul className="text-left py-2 text-sky-700">
+            <div className="absolute left-0 mt-2 w-44 bg-white rounded-xl shadow-lg text-sky-700 z-50">
+              <ul className="py-2">
                 <li><a href="/room?type=standard" className="block px-4 py-2 hover:bg-sky-100">Standard Room</a></li>
                 <li><a href="/room?type=deluxe" className="block px-4 py-2 hover:bg-sky-100">Deluxe Room</a></li>
-                <li><a href="/room?type=suite" className="block px-4 py-2 hover:bg-sky-100">Luxury Suite</a></li>
+                <li><a href="/room?type=suite" className="block px-4 py-2 hover:bg-sky-100">Suite</a></li>
                 <li><a href="/room?type=executive" className="block px-4 py-2 hover:bg-sky-100">Executive Room</a></li>
                 <li><a href="/room?type=family" className="block px-4 py-2 hover:bg-sky-100">Family Room</a></li>
                 <li><a href="/room?type=presidential" className="block px-4 py-2 hover:bg-sky-100">Presidential Suite</a></li>
+                <li><a href="/room?type=apartment" className="block px-4 py-2 hover:bg-sky-100">Apartment Suite</a></li>
               </ul>
             </div>
           )}
@@ -77,7 +79,7 @@ function Header() {
         <a href="/contact" className="hover:text-sky-300">Contact</a>
       </nav>
 
-      {/* Desktop Profile / Login */}
+      {/* DESKTOP LOGIN / PROFILE */}
       <div className="hidden md:flex items-center gap-3">
         {user ? (
           <>
@@ -87,7 +89,7 @@ function Header() {
                 alt="Profile"
                 className="w-8 h-8 rounded-full"
               />
-              <span>{user.fullname || "Profile"}</span>
+              <span>{user.fullname}</span>
             </div>
             <button
               onClick={handleLogout}
@@ -112,39 +114,28 @@ function Header() {
         )}
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* MOBILE MENU BUTTON */}
       <button
-        className="md:hidden text-white focus:outline-none"
-        onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+        className="md:hidden text-white"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >
         {isMobileMenuOpen ? (
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         )}
       </button>
 
-      {/* Mobile Menu Content */}
+      {/* MOBILE MENU */}
       {isMobileMenuOpen && (
-        <div className="absolute top-[70px] left-0 w-full bg-gray-900 flex flex-col items-center py-6 gap-6 text-white font-semibold md:hidden">
+        <div className="absolute top-[70px] left-0 w-full bg-gray-900 py-6 flex flex-col items-center gap-6 md:hidden text-white">
           <a href="/" className="hover:text-sky-300">Home</a>
           <a href="/about" className="hover:text-sky-300">About</a>
-
-          {/* Mobile Rooms List */}
-          <div className="flex flex-col items-center gap-1">
-            <span className="text-sky-400 font-bold">Rooms</span>
-            <a href="/room?type=standard" className="hover:text-sky-300">Standard Room</a>
-            <a href="/room?type=deluxe" className="hover:text-sky-300">Deluxe Room</a>
-            <a href="/room?type=suite" className="hover:text-sky-300">Luxury Suite</a>
-            <a href="/room?type=executive" className="hover:text-sky-300">Executive Room</a>
-            <a href="/room?type=family" className="hover:text-sky-300">Family Room</a>
-            <a href="/room?type=presidential" className="hover:text-sky-300">Presidential Suite</a>
-          </div>
-
+          <a href="/room" className="hover:text-sky-300">Rooms</a>
           <a href="/guest" className="hover:text-sky-300">Guest</a>
           <a href="/booking" className="hover:text-sky-300">Booking</a>
           <a href="/contact" className="hover:text-sky-300">Contact</a>
@@ -157,7 +148,7 @@ function Header() {
                   alt="Profile"
                   className="w-8 h-8 rounded-full"
                 />
-                <span>{user.fullname || "Profile"}</span>
+                <span>{user.fullname}</span>
               </div>
               <button
                 onClick={handleLogout}
