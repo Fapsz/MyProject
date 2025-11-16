@@ -30,7 +30,7 @@ function Booking() {
     setMessage("");
 
     try {
-      const response = await fetch(`${API_URL}/user/booking`, {
+      const response = await fetch(`${API_URL}/users/booking`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
