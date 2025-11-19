@@ -38,22 +38,22 @@ function Signup() {
       const data = await response.json();
       console.log("Signup successful:", data);
 
-      // if (response.ok) {
-      //   // ✅ Save user to localStorage
-      //   localStorage.setItem(
-      //     "user",
-      //     JSON.stringify({
-      //       id: data.id || data.user?.id,
-      //       fullname: formData.fullname,
-      //       email: formData.email,
-      //       token: data.token,
-      //     })
-      //   );
+      if (response.ok) {
+        // ✅ Save user to localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: data.id || data.user?.id,
+            fullname: formData.fullname,
+            email: formData.email,
+            token: data.token,
+          })
+        );
 
-      //   navigate("/");
-      // } else {
-      //   alert(data.message || "Signup failed. Please try again.");
-      // }
+        navigate("/");
+      } else {
+        alert(data.message || "Signup failed. Please try again.");
+      }
     } catch (error) {
       console.error("Error during signup:", error);
       alert("Something went wrong. Please try again.");
